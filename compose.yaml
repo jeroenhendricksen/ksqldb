@@ -44,7 +44,23 @@ services:
     ports:
       - "8088:8088"
     environment:
+      KSQL_SERVICE_ID: 1
       KSQL_LISTENERS: http://0.0.0.0:8088
+      KSQL_BOOTSTRAP_SERVERS: broker:9092
+      KSQL_KSQL_LOGGING_PROCESSING_STREAM_AUTO_CREATE: "true"
+      KSQL_KSQL_LOGGING_PROCESSING_TOPIC_AUTO_CREATE: "true"
+
+  ksqldb-server2:
+    image: confluentinc/ksqldb-server:${CP_KSQLDB_VERSION}
+    hostname: ksqldb-server2
+    container_name: ksqldb-server2
+    depends_on:
+      - broker
+    ports:
+      - "8089:8089"
+    environment:
+      KSQL_SERVICE_ID: 1
+      KSQL_LISTENERS: http://0.0.0.0:8089
       KSQL_BOOTSTRAP_SERVERS: broker:9092
       KSQL_KSQL_LOGGING_PROCESSING_STREAM_AUTO_CREATE: "true"
       KSQL_KSQL_LOGGING_PROCESSING_TOPIC_AUTO_CREATE: "true"
